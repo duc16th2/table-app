@@ -65,13 +65,17 @@ export class AppComponent {
   }
   handleSort(item): void {
     this.orderBy = item;
+    if (this.orderBy.value === '') {
+      this.sortedUser = this.users;
+      return;
+    }
+    let by = this.orderBy.value;
     this.sortedUser.sort((a, b) => {
-      if (this.orderBy.value === '') {
-        this.sortedUser = this.users;
-        return;
+      if (by === 'id' || by === 'salary') {
+        return a[by] - b[by];
       }
-      let x = a[this.orderBy.value].toLowerCase();
-      let y = b[this.orderBy.value].toLowerCase();
+      let x = a[by].toLowerCase();
+      let y = b[by].toLowerCase();
       if (x < y) {
         return -1;
       }
